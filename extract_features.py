@@ -66,7 +66,7 @@ def run(i3d, frequency, frames_dir, batch_size, sample_mode):
 		return features.cpu().numpy()
 	
 	# 使用 natsorted 对帧目录中的文件进行自然排序
-	rgb_files = natsorted([i for i in os.listdir(frames_dir)])
+	rgb_files = natsorted([i for i in os.listdir(frames_dir)])  # ['01', '02', ..., '06']
 	frame_cnt = len(rgb_files)
 	breakpoint()
 
