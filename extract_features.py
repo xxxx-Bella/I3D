@@ -29,6 +29,7 @@ def load_rgb_batch(frames_dir, rgb_files, frame_indices):
 
 
 # 数据增强（过采样）
+# “10-crop” augment: cropping images into the center, four corners, and their mirrored counterparts
 def oversample_data(data):
 	data_flip = np.array(data[:,:,:,::-1,:])  # 沿宽度方向翻转数据数组
 
