@@ -1,4 +1,5 @@
 from pathlib import Path
+from natsort import natsorted
 import shutil
 import argparse
 import numpy as np
@@ -13,30 +14,28 @@ import time
 # import torchvision
 from extract_features import run
 from resnet import i3_res50
-# import os
+import os
 
 
 def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sample_mode):
 	Path(outputpath).mkdir(parents=True, exist_ok=True)
-	temppath = outputpath+ "/temp/"
+	# temppath = outputpath+ "/temp/"
 	rootdir = Path(datasetpath)
-	frames_dir = rootdir
 	# videos = [str(f) for f in rootdir.glob('**/*.mp4')]
-    # 假设图像帧已经是按顺序编号的
-	images = [str(f) for f in rootdir.glob('**/*.jpg')]
+	videos_dir = [str(f) for f in rootdir.glob('*') if not f.name.endswith('.npy')]  # 6 videos
+	videos_dir = natsorted(videos_dir) 
+	# breakpoint()
 
 	# setup the model
 	i3d = i3_res50(400, pretrainedpath)
 	i3d.cuda()
 	i3d.train(False)  # Set model to evaluate mode
 
-    # 根据频率参数筛选图像帧
-	images = images[::frequency]
-
-	for image in images:
-		imagename = image.split("/")[-1].split(".")[0]
+	for video_dir in videos_dir:
+		videoname = video_dir.split("/")[-1].split(".")[0]  # '01'
 		startime = time.time()
-		print("Generating for {0}".format(image))
+		print(f"Generating for {video_dir}")
+		# breakpoint()
 
 		# Path(temppath).mkdir(parents=True, exist_ok=True)
 		# ffmpeg.input(video).output('{}%d.jpg'.format(temppath),start_number=0).global_args('-loglevel', 'quiet').run()
@@ -44,16 +43,17 @@ def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sam
 		# features = run(i3d, frequency, temppath, batch_size, sample_mode)
 
 		# 由于图像已经是单独的文件，不需要使用ffmpeg提取帧，直接运行特征提取
-		features = run(i3d, frequency, frames_dir, batch_size, sample_mode)
+		features = run(i3d, frequency, video_dir, batch_size, sample_mode)
 		
-		np.save(outputpath + "/" + imagename, features)
-		print("Obtained features of size: ", features.shape)
+		np.save(outputpath + "/" + videoname, features)
+		print("Obtained features of size: ", features.shape)  # (56, 10, 2048)
 		# shutil.rmtree(temppath)
+
 		print("done in {0}.".format(time.time() - startime))
 
-if __name__ == '__main__': 
+if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--datasetpath', type=str, default="samplevideos/")  # 包含所有视频文件夹的目录
+	parser.add_argument('--datasetpath', type=str, default="samplevideos/")  # 包含所有视频文件夹的目录 /home/featurize/work/yuxin/data/drone_anomaly/Bike_Roundabout/sequence1/train
 	parser.add_argument('--outputpath', type=str, default="output")
 	parser.add_argument('--pretrainedpath', type=str, default="pretrained/i3d_r50_kinetics.pth")
 	parser.add_argument('--frequency', type=int, default=16)

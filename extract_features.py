@@ -67,9 +67,10 @@ def run(i3d, frequency, frames_dir, batch_size, sample_mode):
 		return features.cpu().numpy()
 	
 	# 使用 natsorted 对帧目录中的文件进行自然排序
-	rgb_files = natsorted([i for i in os.listdir(frames_dir)])  # ['01', '02', ..., '06']
-	frame_cnt = len(rgb_files)
-	breakpoint()
+	rgb_files = natsorted([f for f in os.listdir(frames_dir) 
+						if f.endswith('.jpg')])  # 
+	frame_cnt = len(rgb_files)  # 视频片段中所有帧的总数
+	# breakpoint()
 
 	# Cut frames
 	assert(frame_cnt > chunk_size)
