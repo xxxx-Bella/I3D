@@ -4,16 +4,17 @@ import argparse
 import numpy as np
 import time
 import ffmpeg
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-from torch.optim import lr_scheduler
-from torch.autograd import Variable
-import torchvision
+# from ffmpeg import input
+# import torch
+# import torch.nn as nn
+# import torch.nn.functional as F
+# import torch.optim as optim
+# from torch.optim import lr_scheduler
+# from torch.autograd import Variable
+# import torchvision
 from extract_features import run
 from resnet import i3_res50
-import os
+# import os
 
 
 def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sample_mode):
@@ -30,7 +31,12 @@ def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sam
 		startime = time.time()
 		print("Generating for {0}".format(video))
 		Path(temppath).mkdir(parents=True, exist_ok=True)
+
 		ffmpeg.input(video).output('{}%d.jpg'.format(temppath),start_number=0).global_args('-loglevel', 'quiet').run()
+		# # 使用 ffmpeg-python 的 input 函数
+		# video_stream = ffmpeg.input(video)
+		# video_stream.output('{}%d.jpg'.format(temppath), start_number=0).global_args('-loglevel', 'quiet').run()
+
 		print("Preprocessing done..")
 		features = run(i3d, frequency, temppath, batch_size, sample_mode)
 		np.save(outputpath + "/" + videoname, features)
@@ -47,4 +53,5 @@ if __name__ == '__main__':
 	parser.add_argument('--batch_size', type=int, default=20)
 	parser.add_argument('--sample_mode', type=str, default="oversample")
 	args = parser.parse_args()
+
 	generate(args.datasetpath, str(args.outputpath), args.pretrainedpath, args.frequency, args.batch_size, args.sample_mode)    
