@@ -38,4 +38,7 @@ python -m utils.convert_weights pretrained/i3d_baseline_32x2_IN_pretrain_400k.pk
 ### Run
 ```bash
 python main.py --datasetpath=samplevideos/ --outputpath=output
+
+python main.py --datasetpath=/home/featurize/work/yuxin/data/drone_anomaly/Bike_Roundabout/sequence1/train  --outputpath=output/
+
 ```
