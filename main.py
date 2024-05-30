@@ -58,7 +58,7 @@ def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sam
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--datasetpath', type=str, default="samplevideos/")  # 包含所有视频文件夹的目录 /home/featurize/work/yuxin/data/drone_anomaly/Bike_Roundabout/sequence1/train
-	parser.add_argument('--outputpath', type=str, default="output")
+	parser.add_argument('--outputpath', type=str, default="output/drone_anomaly")
 	parser.add_argument('--pretrainedpath', type=str, default="pretrained/i3d_r50_kinetics.pth")
 	parser.add_argument('--frequency', type=int, default=16)
 	parser.add_argument('--batch_size', type=int, default=20)
