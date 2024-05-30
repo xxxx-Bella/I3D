@@ -32,10 +32,14 @@ def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sam
 	i3d.train(False)  # Set model to evaluate mode
 
 	for video_dir in videos_dir:
-		videoname = video_dir.split("/")[-1].split(".")[0]  # '01'
+		vid_n = video_dir.split("/")[-1].split(".")[0]  # '01'
+		scene = video_dir.split("/")[-4]
+		seq = video_dir.split("/")[-3]
+		vid_label = 0 if video_dir.split("/")[-2] == 'train' else 1
+		vid_name = f'{scene}_{seq}_{vid_n}_label_{vid_label}'
 		startime = time.time()
 		print(f"Generating for {video_dir}")
-		# breakpoint()
+		breakpoint()
 
 		# Path(temppath).mkdir(parents=True, exist_ok=True)
 		# ffmpeg.input(video).output('{}%d.jpg'.format(temppath),start_number=0).global_args('-loglevel', 'quiet').run()
@@ -45,7 +49,7 @@ def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sam
 		# 由于图像已经是单独的文件，不需要使用ffmpeg提取帧，直接运行特征提取
 		features = run(i3d, frequency, video_dir, batch_size, sample_mode)
 		
-		np.save(outputpath + "/" + videoname, features)
+		np.save(outputpath + "/" + vid_name, features)
 		print("Obtained features of size: ", features.shape)  # (56, 10, 2048)
 		# shutil.rmtree(temppath)
 
