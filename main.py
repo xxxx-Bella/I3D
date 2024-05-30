@@ -39,7 +39,7 @@ def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sam
 		vid_name = f'{scene}_{seq}_{vid_n}_label_{vid_label}'
 		startime = time.time()
 		print(f"Generating for {video_dir}")
-		breakpoint()
+		# breakpoint()
 
 		# Path(temppath).mkdir(parents=True, exist_ok=True)
 		# ffmpeg.input(video).output('{}%d.jpg'.format(temppath),start_number=0).global_args('-loglevel', 'quiet').run()
