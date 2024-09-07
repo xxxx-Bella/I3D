@@ -26,5 +26,5 @@ python main.py --datasetpath=/home/featurize/work/yuxin/data/drone_anomaly_new/S
 python main.py --datasetpath=/home/featurize/work/yuxin/data/drone_anomaly_new/Solar_Panel_Inspection/seq2/train  --outputpath=output/drone_anomaly_new > log/Solar_seq2_train.log 2>&1
 python main.py --datasetpath=/home/featurize/work/yuxin/data/drone_anomaly_new/Solar_Panel_Inspection/seq2/test --outputpath=output/drone_anomaly_new > log/Solar_seq2_test.log 2>&1
 
-# python main.py --datasetpath=/home/featurize/work/yuxin/data/drone_anomaly_new/Vehicle_Roundabout/seq1/train  --outputpath=output/drone_anomaly_new > log/Vehicle_seq1_train.log 2>&1
+python main.py --datasetpath=/home/featurize/work/yuxin/data/drone_anomaly_new/Vehicle_Roundabout/seq1/train  --outputpath=output/drone_anomaly_new > log/Vehicle_seq1_train.log 2>&1
 python main.py --datasetpath=/home/featurize/work/yuxin/data/drone_anomaly_new/Vehicle_Roundabout/seq1/test --outputpath=output/drone_anomaly_new > log/Vehicle_seq1_test.log 2>&1
