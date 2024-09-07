@@ -24,6 +24,7 @@ def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sam
 	# videos = [str(f) for f in rootdir.glob('**/*.mp4')]
 	videos_dir = [str(f) for f in rootdir.glob('*') if not f.name.endswith('.npy')]  # 6 videos
 	videos_dir = natsorted(videos_dir) 
+	# print('videos_dir:', videos_dir)
 	# breakpoint()
 
 	# setup the model
@@ -64,4 +65,5 @@ if __name__ == '__main__':
 	parser.add_argument('--batch_size', type=int, default=20)
 	parser.add_argument('--sample_mode', type=str, default="oversample")
 	args = parser.parse_args()
-	generate(args.datasetpath, str(args.outputpath), args.pretrainedpath, args.frequency, args.batch_size, args.sample_mode)    
+
+	generate(args.datasetpath, str(args.outputpath), args.pretrainedpath, args.frequency, args.batch_size, args.sample_mode)

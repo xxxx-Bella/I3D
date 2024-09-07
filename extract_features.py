@@ -7,10 +7,13 @@ from natsort import natsorted
 from PIL import Image
 from torch.autograd import Variable
 
+# import PIL 
+# print(PIL.__version__) # 10.4.0
 
 def load_frame(frame_file):
 	data = Image.open(frame_file)
-	data = data.resize((340, 256), Image.ANTIALIAS)
+	# data = data.resize((340, 256), Image.ANTIALIAS) # 在 Pillow 10.0.0 版本中，Image.ANTIALIAS 已被移除
+	data = data.resize((340, 256), Image.Resampling.LANCZOS)
 	data = np.array(data)
 	data = data.astype(float)
 	data = (data * 2 / 255) - 1  # 将图像像素值归一化到 [-1, 1] 范围内

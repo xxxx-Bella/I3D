@@ -37,5 +37,10 @@ python -m utils.convert_weights pretrained/i3d_baseline_32x2_IN_pretrain_400k.pk
 
 ### Run
 ```bash
-python main.py --datasetpath=samplevideos/ --outputpath=output
+cd /home/featurize/work/yuxin/WVAD/I3D
+pip install natsort && pip install torch matplotlib scikit-learn
+bash i3d.sh
+
+git config --global user.email "hyx18390659623@163.com" && git config --global user.name "xxxx-Bella"
+# python main.py --datasetpath=samplevideos/ --outputpath=output
 ```
