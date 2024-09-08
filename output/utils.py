@@ -3,35 +3,6 @@ import numpy as np
 import shutil
 
 
-def get_name_list(root_dir):
-    files_list = []
-    # 获取当前目录下所有的文件
-    for filename in os.listdir(root_dir):
-        if filename.endswith('.npy'):
-            files_list.append(filename)
-    
-    # 将列表存储到一个文件中
-    dataset = 'DA' if 'drone_anomaly' in root_dir else 'temp'
-    list_file_path = f'{dataset}.list'
-    with open(list_file_path, 'w') as f:
-        for file_name in files_list:
-            f.write(file_name + '\n')  # 每个文件名占一行
-
-    print(f'List of .npy files has been written to {list_file_path}')
-
-
-def write_absolute_paths(input_list_file, output_list_file):
-    input_dir = os.path.join(os.path.dirname(input_list_file), 'drone_anomaly') 
-    # 读取文件名列表
-    with open(input_list_file, 'r') as f:
-        file_names = f.read().splitlines()
-    
-    # 获取绝对路径并写入到新的文件中
-    with open(output_list_file, 'w') as f:
-        for file_name in file_names:
-            absolute_path = os.path.abspath(os.path.join(input_dir, file_name))
-            f.write(absolute_path + '\n')
-
 
 def copy_and_rename_npy_files(data_dir, i3d_dir):
     """
@@ -93,21 +64,60 @@ def copy_all_files(src_dir, dest_dir):
     print(f'{vid_a_count+vid_n_count} video ({vid_n_count} normal, {vid_a_count} abnormal), {gt_count} gt')
 
 
+def get_name_list(root_dir):
+    files_list = []
+    # 获取当前目录下所有的文件
+    for filename in os.listdir(root_dir):
+        if filename.endswith('.npy'):
+            files_list.append(filename)
+    
+    # 将列表存储到一个文件中
+    dataset = 'DA-new' if 'drone_anomaly_new' in root_dir else 'temp'
+    list_i3d_path = f'{dataset}-i3d.list'
+    list_gt_path = f'{dataset}-gt.list'
+    with open(list_i3d_path, 'w') as f:
+        for file_name in files_list:
+            if '_gt' not in file_name:
+                f.write(file_name + '\n')  # 每个文件名占一行
+    with open(list_gt_path, 'w') as f:
+        for file_name in files_list:
+            if '_gt' in file_name:
+                f.write(file_name + '\n')
 
-# # root_dir = './drone_anomaly'
-# # get_name_list(root_dir)
+    print(f'List of i3d.npy files has been written to {list_i3d_path}')
+    print(f'List of gt.npy files has been written to {list_gt_path}')
 
-# type = 'test' # train test
-# input_list_file = f'/home/featurize/work/yuxin/WVAD/I3D/output/DA-{type}.list'
-# output_list_file = f'/home/featurize/work/yuxin/WVAD/RTFM/list/DA-i3d-{type}.list'
-# write_absolute_paths(input_list_file, output_list_file)
+
+def write_absolute_paths(input_list_file, output_list_file):
+    input_dir = os.path.join(os.path.dirname(input_list_file), 'drone_anomaly') 
+    # 读取文件名列表
+    with open(input_list_file, 'r') as f:
+        file_names = f.read().splitlines()
+    
+    # 获取绝对路径并写入到新的文件中
+    with open(output_list_file, 'w') as f:
+        for file_name in file_names:
+            absolute_path = os.path.abspath(os.path.join(input_dir, file_name))
+            f.write(absolute_path + '\n')
+
 
 # # 拷贝 npy in abnormal, 和重命名
 # data_dir = '/home/featurize/work/yuxin/data/drone_anomaly_new_tmp'
 # i3d_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new_tmp'
 # copy_and_rename_npy_files(data_dir, i3d_dir)
 
-# 文件拷贝
-src_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new_tmp'
-dest_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new'
-copy_all_files(src_dir, dest_dir)
+# # 文件拷贝
+# src_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new' # _tmp
+# dest_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new'
+# copy_all_files(src_dir, dest_dir)
+
+# # # get i3d and label list (in ./I3D/)
+# root_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new'
+# get_name_list(root_dir)
+
+# ./RTFM/list/DA-i3d.list = absolute_path(./I3D/output/DA-new-i3d.list)
+# also, DA-i3d-gt.list
+type = 'test'  # train, test
+input_list_file = f'/home/featurize/work/yuxin/WVAD/I3D/output/DA-{type}.list'
+output_list_file = f'/home/featurize/work/yuxin/WVAD/RTFM/list/DA-i3d-{type}.list'
+# write_absolute_paths(input_list_file, output_list_file)

@@ -52,5 +52,8 @@ git config --global user.email "hyx18390659623@163.com" && git config --global u
 153 video (108 normal, 45 abnormal), 45 gt
 
 * 'drone_anomaly_new_tmp/': split (all moved to drone_anomaly_new/)
-(18 normal sub_videos in test) --> (train)
+(18 normal sub_videos in test) --> (train).
 18 video (18 normal, 0 abnormal), 45 gt
+
+Split train & test (manually). Both set contain normal and anbormal samples. 
+train (85=61+24), test (72=47+25).
