@@ -1,4 +1,5 @@
 pretrained/
-output/
 log/
+log_tmp/
 __pycache__/
+output/drone_anomaly*/

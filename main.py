@@ -36,7 +36,7 @@ def generate(datasetpath, outputpath, pretrainedpath, frequency, batch_size, sam
 		vid_n = video_dir.split("/")[-1].split(".")[0]  # '01'
 		scene = video_dir.split("/")[-4]
 		seq = video_dir.split("/")[-3]
-		vid_label = 0 if video_dir.split("/")[-2] == 'train' else 1
+		vid_label = 0 if video_dir.split("/")[-2] == 'normal' else 1
 		vid_name = f'{scene}_{seq}_{vid_n}_label_{vid_label}'
 		startime = time.time()
 		print(f"Generating for {video_dir}")
