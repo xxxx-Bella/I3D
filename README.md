@@ -46,12 +46,12 @@ git config --global user.email "hyx18390659623@163.com" && git config --global u
 ```
 
 ## Note: I3D of drone_anomaly
-* 'drone_anomaly/': original
+* 'drone_anomaly_origin/': original
 
-* 'drone_anomaly_new/': split (window-size 600) to get sub_videos and sub_labels, some sub_videos in abnormal(original test) became normal (18), transfer them to normal dir (original train).
+* 'drone_anomaly/': split (window-size 600) to get sub_videos and sub_labels, some sub_videos in abnormal(original test) became normal (18), transfer them to normal dir (original train).
 153 video (108 normal, 45 abnormal), 45 gt
 
-* 'drone_anomaly_new_tmp/': split (all moved to drone_anomaly_new/)
+* 'drone_anomaly_tmp/': split (all moved to drone_anomaly/)
 (18 normal sub_videos in test) --> (train).
 18 video (18 normal, 0 abnormal), 45 gt
 

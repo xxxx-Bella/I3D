@@ -61,7 +61,7 @@ if __name__ == '__main__':
 	parser.add_argument('--datasetpath', type=str, default="samplevideos/")  # 包含所有视频文件夹的目录 /home/featurize/work/yuxin/data/drone_anomaly/Bike_Roundabout/sequence1/train
 	parser.add_argument('--outputpath', type=str, default="output/drone_anomaly")
 	parser.add_argument('--pretrainedpath', type=str, default="pretrained/i3d_r50_kinetics.pth")
-	parser.add_argument('--frequency', type=int, default=16)
+	parser.add_argument('--frequency', type=int, default=16, help="the interval between frames, i.e., when processing video frames, sampling frames from video by frequency.")
 	parser.add_argument('--batch_size', type=int, default=20)
 	parser.add_argument('--sample_mode', type=str, default="oversample")
 	args = parser.parse_args()

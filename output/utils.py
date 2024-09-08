@@ -72,7 +72,7 @@ def get_name_list(root_dir):
             files_list.append(filename)
     
     # 将列表存储到一个文件中
-    dataset = 'DA-new' if 'drone_anomaly_new' in root_dir else 'temp'
+    dataset = 'DA' if 'drone_anomaly' in root_dir else 'temp'
     list_i3d_path = f'{dataset}-i3d.list'
     list_gt_path = f'{dataset}-gt.list'
     with open(list_i3d_path, 'w') as f:
@@ -102,22 +102,23 @@ def write_absolute_paths(input_list_file, output_list_file):
 
 
 # # 拷贝 npy in abnormal, 和重命名
-# data_dir = '/home/featurize/work/yuxin/data/drone_anomaly_new_tmp'
-# i3d_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new_tmp'
+# data_dir = '/home/featurize/work/yuxin/data/drone_anomaly_tmp'
+# i3d_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_tmp'
 # copy_and_rename_npy_files(data_dir, i3d_dir)
 
 # # 文件拷贝
-# src_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new' # _tmp
-# dest_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new'
+# src_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_tmp' # 
+# dest_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly'
 # copy_all_files(src_dir, dest_dir)
 
 # # # get i3d and label list (in ./I3D/)
-# root_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly_new'
+# root_dir = '/home/featurize/work/yuxin/WVAD/I3D/output/drone_anomaly'
 # get_name_list(root_dir)
 
-# ./RTFM/list/DA-i3d.list = absolute_path(./I3D/output/DA-new-i3d.list)
-# also, DA-i3d-gt.list
-type = 'test'  # train, test
-input_list_file = f'/home/featurize/work/yuxin/WVAD/I3D/output/DA-{type}.list'
-output_list_file = f'/home/featurize/work/yuxin/WVAD/RTFM/list/DA-i3d-{type}.list'
-# write_absolute_paths(input_list_file, output_list_file)
+# get file path:
+# ./RTFM/list/DA-i3d.list = absolute_path(./I3D/output/DA-i3d.list)
+# also, DA-i3d-gt.list? 
+for type in ['train', 'test']:
+    input_list_file = f'/home/featurize/work/yuxin/WVAD/I3D/output/DA-i3d-{type}.list'
+    output_list_file = f'/home/featurize/work/yuxin/WVAD/RTFM/list/DA-i3d-{type}.list'
+    write_absolute_paths(input_list_file, output_list_file)
