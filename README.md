@@ -45,14 +45,12 @@ git config --global user.email "hyx18390659623@163.com" && git config --global u
 # python main.py --datasetpath=samplevideos/ --outputpath=output
 ```
 
-# Note: I3D of drone_anomaly
+## Note: I3D of drone_anomaly
 * 'drone_anomaly/': original
 
 * 'drone_anomaly_new/': split (window-size 600) to get sub_videos and sub_labels, some sub_videos in abnormal(original test) became normal (18), transfer them to normal dir (original train).
-
 153 video (108 normal, 45 abnormal), 45 gt
 
 * 'drone_anomaly_new_tmp/': split (all moved to drone_anomaly_new/)
 (18 normal sub_videos in test) --> (train)
-
 18 video (18 normal, 0 abnormal), 45 gt
